@@ -35,8 +35,8 @@ wire [31:0] instr;
 wire [31:0] immExt;
 
 instruction_memory instructions(
-    .A(pc),
-    .RD(instr)
+    .pc(pc),
+    .instr(instr)
 );
 
 
@@ -47,14 +47,16 @@ instruction_memory instructions(
 */
 wire [31:0] reg1Out;
 wire [31:0] reg2Out;
+wire regWrite;
+assign regWrite = 1'b1; // TODO: Change with more instructions
 
 register_file get_register(
     .A1(instr[19:15]), // TODO: Not sure if just flatly assigning RD[19:15] works if we were to include U and J type instructions
     .A2(5'b00000),
-    .A3(5'b00000),
+    .A3(instr[11:7]),
     .WD3(dataOut),
     .clk(clk),
-    .WE3(1),
+    .WE3(regWrite),
     .RD1(reg1Out),
     .RD2(reg2Out)
 );
@@ -81,12 +83,15 @@ ALU CPU_ALU(
 * Read in Data
 *
 */
+
+wire writeEnable;
+assign writeEnable = 1'b0;
 wire [31:0] dataOut;
 data_memory get_data(
     .A(ALUOut),
     .WD(),
     .clk(clk),
-    .WE(),
+    .WE(writeEnable),
     .RD(dataOut)
 );
 
