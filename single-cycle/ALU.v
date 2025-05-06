@@ -1,19 +1,19 @@
 module ALU (
-    input [31:0] SrcA,
-    input [31:0] SrcB,
-    input [2:0] ALUControl,
-    output [31:0] ALUOut,
+    input [31:0] in_data1,
+    input [31:0] in_data2,
+    input [2:0] in_select,
+    output [31:0] out_data,
 );
 
 localparam ADD = 3'b000;
 
 always @* begin
-    case (ALUControl)
+    case (in_select)
         ADD: begin
-            ALUOut = SrcA + SrcB;
+            out_data = in_data1 + in_data2;
         end
         default: begin
-            ALUOut = 31'b0;
+            out_data = 31'b0;
         end
     endcase
 end

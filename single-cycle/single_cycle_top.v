@@ -35,8 +35,8 @@ wire [31:0] instr;
 wire [31:0] immExt;
 
 instruction_memory instructions(
-    .pc(pc),
-    .instr(instr)
+    .in_address(pc),
+    .out_instruction(instr)
 );
 
 
@@ -51,14 +51,14 @@ wire regWrite;
 assign regWrite = 1'b1; // TODO: Change with more instructions
 
 register_file get_register(
-    .A1(instr[19:15]), // TODO: Not sure if just flatly assigning RD[19:15] works if we were to include U and J type instructions
-    .A2(5'b00000),
-    .A3(instr[11:7]),
-    .WD3(dataOut),
+    .in_read1_address(instr[19:15]), // TODO: Not sure if just flatly assigning RD[19:15] works if we were to include U and J type instructions
+    .in_read2_address(5'b00000),
+    .in_write_address(instr[11:7]),
+    .in_write_data(dataOut),
     .clk(clk),
-    .WE3(regWrite),
-    .RD1(reg1Out),
-    .RD2(reg2Out)
+    .in_write_enable(regWrite),
+    .out_read1_data(reg1Out),
+    .out_read2_data(reg2Out)
 );
 
 
@@ -70,10 +70,10 @@ register_file get_register(
 wire [31:0] ALUOut;
 
 ALU CPU_ALU(
-    .SrcA(reg1Out),
-    .SrcB(immExt),
-    .ALUControl(3'b000),
-    .ALUOut(ALUOut)
+    .in_data1(reg1Out),
+    .in_data2(immExt),
+    .in_select(3'b000),
+    .out_data(ALUOut)
 );
 
 
@@ -88,11 +88,11 @@ wire writeEnable;
 assign writeEnable = 1'b0;
 wire [31:0] dataOut;
 data_memory get_data(
-    .A(ALUOut),
-    .WD(),
+    .in_address(ALUOut),
+    .in_write_data(),
     .clk(clk),
-    .WE(writeEnable),
-    .RD(dataOut)
+    .in_write_enable(writeEnable),
+    .out_data(dataOut)
 );
 
 
@@ -103,9 +103,9 @@ data_memory get_data(
 *
 */
 extend extend_imm_i (
-    .imm(instr[31:7]),
-    .select(0),
-    .immExt(immExt)
+    .in_data(instr[31:7]),
+    .in_select(0),
+    .out_data(immExt)
 );
 
 endmodule
