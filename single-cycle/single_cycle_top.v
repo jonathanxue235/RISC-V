@@ -48,7 +48,6 @@ instruction_memory instructions(
 wire [31:0] reg1Out;
 wire [31:0] reg2Out;
 wire regWrite;
-assign regWrite = 1'b1; // TODO: Change with more instructions
 
 register_file get_register(
     .in_read1_address(instr[19:15]), // TODO: Not sure if just flatly assigning RD[19:15] works if we were to include U and J type instructions
@@ -85,7 +84,6 @@ ALU CPU_ALU(
 */
 
 wire writeEnable;
-assign writeEnable = 1'b0;
 wire [31:0] dataOut;
 data_memory get_data(
     .in_address(ALUOut),
@@ -107,5 +105,31 @@ extend extend_imm_i (
     .in_select(0),
     .out_data(immExt)
 );
+
+/**
+*
+* Main Decoder
+*
+*/
+wire [2:0] funct3;
+wire [6:0] funct7;
+wire select1;
+wire select2;
+wire [1:0] aluOp
+
+decoder_main decode_main (
+    .in_instruction(instr),
+    .out_funct3(funct3),
+    .out_funct7(funct7),
+    .out_reg_write(regWrite),
+    .out_mem_write(writeEnable),
+    .out_alu_src_a(select1),
+    .out_alu_src_b(select2),
+    .out_alu_op(aluOp)
+)
+
+
+
+
 
 endmodule

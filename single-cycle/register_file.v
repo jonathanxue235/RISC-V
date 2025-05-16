@@ -5,17 +5,24 @@ module register_file(
     input [31:0] in_write_data,
     input clk,
     input in_write_enable,
+    input reset,
     output [31:0] out_read1_data,
     output [31:0] out_read2_data
 );
 
 reg [31:0] registers [31:0];
-assign registers[0] = 32'b0;
 
-always @(posedge clk) begin
-    if (in_write_enable) begin
-        if (in_write_address != 0) begin
-            registers[in_write_address] <= in_write_data;
+always @(posedge clk or posedge reset) begin
+    if (reset) begin
+        for (integer i = 0; i < 32; i = i + 1) begin
+            registers[i] = 32'b0;
+        end
+    end 
+    else begin
+        if (in_write_enable) begin
+            if (in_write_address != 0) begin // $x0 is always 0
+                registers[in_write_address] <= in_write_data;
+            end
         end
     end
 end

@@ -1,9 +1,12 @@
 module decoder_main (
     input [31:0] in_instruction,
+    output [2:0] out_funct3,
+    output [6:0] out_funct7,
     output out_reg_write,
+    output out_mem_write,
     output out_alu_src_a,
     output out_alu_src_b,
-    output [1:0] out_alu_op,
+    output [1:0] out_alu_op
 );
 reg [6:0] opcode;
 assign opcode = in_instruction[6:0];
@@ -45,47 +48,79 @@ always @* begin
         R: begin
             out_alu_op = 2'b10;
             out_reg_write = 1;
-            
+            out_alu_src_a = 0; // Use Register
+            out_alu_src_b = 0; // Use Register
+            out_mem_write = 0;
         end
         ARITH_I: begin
             out_alu_op = 2'b10;
             out_reg_write = 1;
+            out_alu_src_a = 0;
+            out_alu_src_b = 1;
+            out_mem_write = 0;
         end
         LOAD_I: begin
             out_alu_op = 2'b00;
             out_reg_write = 1;
+            out_alu_src_a = 0;
+            out_alu_src_b = 1;
+            out_mem_write = 0;
         end
         S: begin
             out_alu_op = 2'b00;
             out_reg_write = 0;
+            out_alu_src_a = 0;
+            out_alu_src_b = 1;
+            out_mem_write = 1;
         end
         B: begin
             out_alu_op = 2'b01;
             out_reg_write = 0;
+            out_alu_src_a = 0;
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         J: begin
             out_alu_op = 2'b00;
             out_reg_write = 1;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         JUMP_I: begin
             out_alu_op = 2'b00;
             out_reg_write = 1;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         LOAD_U: begin
             out_alu_op = 2'b11;
             out_reg_write = 1;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         ADD_U: begin
             out_alu_op = 2'b11;
             out_reg_write = 1;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         ENV_I: begin
             out_alu_op = 2'b00;
             out_reg_write = 0;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
         default: begin
             out_alu_op = 2'b00;
             out_reg_write = 0;
+            out_alu_src_a = 0; // TODO: Check
+            out_alu_src_b = 0;
+            out_mem_write = 0;
         end
     endcase
 end

@@ -2,8 +2,7 @@ module decoder_alu (
    input [1:0] in_alu_op,
    input [2:0] in_funct3,
    input [6:0] in_funct7,
-   output [2:0] out_alu_control,
-   output out_funct_control
+   output [2:0] out_alu_control
 );
 
 // funct3 types
@@ -18,11 +17,13 @@ localparam SET_LESS_UNSIGNED = 3'b011;
 
 
 
-reg [2:0] funct3;
 reg [4:0] rs1;
 reg [4:0] rs2;
 reg [4:0] rd;
 reg [11:0] imm_1;
 reg [19:0] imm_2 
+
+
+
 
 endmodule
