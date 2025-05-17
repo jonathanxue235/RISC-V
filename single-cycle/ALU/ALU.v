@@ -1,24 +1,29 @@
 module ALU (
     input [31:0] in_data1,
     input [31:0] in_data2,
-    input [2:0] in_select,
+    input [3:0] in_select,
     output reg [31:0] out_data
 );
 
-// funct3 types
-localparam ADD = 3'b000;
-localparam XOR = 3'b100;
-localparam OR = 3'b110;
-localparam AND = 3'b111;
-localparam SHIFT_LEFT = 3'b001;
-localparam SHIFT_RIGHT = 3'b101;
-localparam SET_LESS = 3'b010;
-localparam SET_LESS_UNSIGNED = 3'b011;
+// {[2:0] funct3, funct7} as ALU Op Code
+localparam ADD = 4'b0000;
+localparam SUB = 4'b0000;
+localparam XOR = 4'b1000;
+localparam OR = 4'b1100;
+localparam AND = 4'b1110;
+localparam SHIFT_LEFT = 4'b0010;
+localparam SHIFT_RIGHT_LOGICAL = 4'b1010;
+localparam SHIFT_RIGHT_ARITHMETIC = 4'b1011;
+localparam SET_LESS = 4'b0100;
+localparam SET_LESS_UNSIGNED = 4'b0110;
 
 always @* begin
     case (in_select)
         ADD: begin 
             out_data = in_data1 + in_data2;
+        end
+        SUB: begin
+            out_data = in_data1 - in_data2;
         end
         XOR: begin
             out_data = in_data1 ^ in_data2;
@@ -32,11 +37,14 @@ always @* begin
         SHIFT_LEFT: begin
             out_data = in_data1 << in_data2;
         end
-        SHIFT_RIGHT: begin
+        SHIFT_RIGHT_LOGICAL: begin
             out_data = in_data1 >> in_data2;
         end
+        SHIFT_RIGHT_ARITHMETIC: begin
+            out_data = $signed(in_data1) >>> in_data2;
+        end
         SET_LESS: begin
-            out_data = {~in_data1[31], in_data1} < {~in_data2[31], in_data2};
+            out_data = $signed(in_data1) < $signed(in_data2);
         end
         SET_LESS_UNSIGNED: begin
             out_data = in_data1 < in_data2;
