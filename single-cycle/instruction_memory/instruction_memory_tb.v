@@ -1,5 +1,3 @@
-// `include "register_file.v"
-
 module instruction_memory_tb ();
 
 reg [31:0] in_address;

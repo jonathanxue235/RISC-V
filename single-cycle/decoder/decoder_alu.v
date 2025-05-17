@@ -21,7 +21,7 @@ reg [4:0] rs1;
 reg [4:0] rs2;
 reg [4:0] rd;
 reg [11:0] imm_1;
-reg [19:0] imm_2 
+reg [19:0] imm_2;
 
 
 

@@ -1,0 +1,148 @@
+$date
+	Sat May 17 15:04:29 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module ALU_tb $end
+$var wire 32 ! out_data [31:0] $end
+$var parameter 3 " ADD $end
+$var parameter 3 # AND $end
+$var parameter 3 $ OR $end
+$var parameter 3 % SET_LESS $end
+$var parameter 3 & SET_LESS_UNSIGNED $end
+$var parameter 3 ' SHIFT_LEFT $end
+$var parameter 3 ( SHIFT_RIGHT $end
+$var parameter 3 ) XOR $end
+$var reg 32 * in_data1 [31:0] $end
+$var reg 32 + in_data2 [31:0] $end
+$var reg 3 , in_select [2:0] $end
+$scope module DUT $end
+$var wire 32 - in_data1 [31:0] $end
+$var wire 32 . in_data2 [31:0] $end
+$var wire 3 / in_select [2:0] $end
+$var parameter 3 0 ADD $end
+$var parameter 3 1 AND $end
+$var parameter 3 2 OR $end
+$var parameter 3 3 SET_LESS $end
+$var parameter 3 4 SET_LESS_UNSIGNED $end
+$var parameter 3 5 SHIFT_LEFT $end
+$var parameter 3 6 SHIFT_RIGHT $end
+$var parameter 3 7 XOR $end
+$var reg 32 8 out_data [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b100 7
+b101 6
+b1 5
+b11 4
+b10 3
+b110 2
+b111 1
+b0 0
+b100 )
+b101 (
+b1 '
+b11 &
+b10 %
+b110 $
+b111 #
+b0 "
+$end
+#0
+$dumpvars
+b0 8
+b0 /
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 !
+$end
+#10
+b11 !
+b11 8
+b10 +
+b10 .
+b1 *
+b1 -
+#20
+b110 !
+b110 8
+b100 ,
+b100 /
+b100 +
+b100 .
+b10 *
+b10 -
+#30
+b111 !
+b111 8
+b110 ,
+b110 /
+b11 *
+b11 -
+#40
+b10 !
+b10 8
+b111 ,
+b111 /
+b10 +
+b10 .
+#50
+b100000 !
+b100000 8
+b1 ,
+b1 /
+b101 +
+b101 .
+b1 *
+b1 -
+#60
+b1000 !
+b1000 8
+b101 ,
+b101 /
+b1 +
+b1 .
+b10001 *
+b10001 -
+#70
+b1 !
+b1 8
+b10 ,
+b10 /
+b101 +
+b101 .
+b11111111111111111111111111110110 *
+b11111111111111111111111111110110 -
+#80
+b0 !
+b0 8
+b1010 *
+b1010 -
+#90
+b11 ,
+b11 /
+b11111111111111111111111111110110 *
+b11111111111111111111111111110110 -
+#100
+b1010 *
+b1010 -
+#110
+b10010 !
+b10010 8
+b0 ,
+b0 /
+b1001 +
+b1001 .
+b1001 *
+b1001 -
+#200
