@@ -1,17 +1,17 @@
 module decoder (
     input [31:0] in_instruction,
-    output [6:0] out_opcode, // DONE
-    output out_branch, // DONE
-    output [2:0] out_branch_op, // DONE
-    output out_reg_write, // DONE
-    output out_mem_write, // DONE
-    output out_alu_src_a, // DONE
-    output out_alu_src_b, // DONE
-    output [3:0] out_alu_op, // DONE
-    output [4:0] out_rd, // DONE
-    output [4:0] out_rs1, // DONE
-    output [4:0] out_rs2, // DONE
-    output [1:0] out_choose_result // DONE
+    output reg [6:0] out_opcode, // DONE
+    output reg out_branch, // DONE
+    output reg [2:0] out_branch_op, // DONE
+    output reg out_reg_write, // DONE
+    output reg out_mem_write, // DONE
+    output reg out_alu_src_a, // DONE
+    output reg out_alu_src_b, // DONE
+    output reg [3:0] out_alu_op, // DONE
+    output reg [4:0] out_rd, // DONE
+    output reg [4:0] out_rs1, // DONE
+    output reg [4:0] out_rs2, // DONE
+    output reg [1:0] out_choose_result // DONE
 );
 
 assign out_opcode = in_instruction[6:0];
@@ -48,15 +48,7 @@ localparam ALU = 2'b00;
 localparam PC = 2'b01;
 localparam MEM = 2'b10;
 
-
-reg [2:0] funct3;
-reg [4:0] rs1;
-reg [4:0] rs2;
-reg [4:0] rd;
-reg [11:0] imm_1;
-reg [19:0] imm_2;
-
-always @* begin
+always @(*) begin
     out_rd = in_instruction[11:7];
     out_rs1 = LOAD_U == out_opcode ? 5'b00000 : in_instruction[19:15];
     out_rs2 = in_instruction[24:20];
