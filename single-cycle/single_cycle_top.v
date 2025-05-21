@@ -12,8 +12,8 @@ module single_cycle_top(
 reg [31:0] pc;
 reg [31:0] pc_next;
 
-always @(posedge clk) begin
-    if (reset) begin
+always @(posedge clk or negedge reset) begin
+    if (!reset) begin
         pc <= 32'h00003000;
     end else begin
         pc <= pc_next;
@@ -71,7 +71,7 @@ wire [31:0] ALUOut;
 ALU CPU_ALU(
     .in_data1(reg1Out),
     .in_data2(immExt),
-    .in_select(3'b000),
+    .in_select(aluOp),
     .out_data(ALUOut)
 );
 
@@ -115,7 +115,7 @@ wire [2:0] funct3;
 wire [6:0] funct7;
 wire select1;
 wire select2;
-wire [1:0] aluOp
+wire [3:0] aluOp;
 
 decoder_main decode_main (
     .in_instruction(instr),

@@ -12,7 +12,7 @@ module register_file(
 
 reg [31:0] registers [31:0];
 
-always @(posedge clk or posedge reset) begin
+always @(posedge clk or negedge reset) begin
     if (reset) begin
         for (integer i = 0; i < 32; i = i + 1) begin
             registers[i] = 32'b0;

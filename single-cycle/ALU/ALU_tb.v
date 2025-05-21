@@ -2,7 +2,7 @@ module ALU_tb ();
 
 reg [31:0] in_data1;
 reg [31:0] in_data2;
-reg [3:0] in_select;
+reg [3:0] in_select; // {[2:0] funct3, funct7} as ALU Op Code
 wire [31:0] out_data;
 
 // {[2:0] funct3, funct7} as ALU Op Code
@@ -16,7 +16,6 @@ localparam SHIFT_RIGHT_LOGICAL = 4'b1010;
 localparam SHIFT_RIGHT_ARITHMETIC = 4'b1011;
 localparam SET_LESS = 4'b0100;
 localparam SET_LESS_UNSIGNED = 4'b0110;
-
 
 ALU DUT(
     .in_data1(in_data1),

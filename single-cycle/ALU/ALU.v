@@ -1,13 +1,14 @@
+
 module ALU (
     input [31:0] in_data1,
     input [31:0] in_data2,
-    input [3:0] in_select,
+    input [3:0] in_select, // {[2:0] funct3, funct7[5]} as ALU Op Code
     output reg [31:0] out_data
 );
 
 // {[2:0] funct3, funct7} as ALU Op Code
 localparam ADD = 4'b0000;
-localparam SUB = 4'b0000;
+localparam SUB = 4'b0001;
 localparam XOR = 4'b1000;
 localparam OR = 4'b1100;
 localparam AND = 4'b1110;
